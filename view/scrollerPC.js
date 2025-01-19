@@ -1,8 +1,9 @@
-import React from 'react';
 import {StyleSheet, Text, ScrollView, StatusBar} from 'react-native';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 
-const App = () => (
+
+export function scrollProductCat() {
+  return (
   <SafeAreaProvider>
     <SafeAreaView style={styles.container} edges={['top']}>
       <ScrollView style={styles.scrollView}>
@@ -18,7 +19,7 @@ const App = () => (
       </ScrollView>
     </SafeAreaView>
   </SafeAreaProvider>
-);
+)};
 
 const styles = StyleSheet.create({
   container: {
@@ -33,5 +34,3 @@ const styles = StyleSheet.create({
     padding: 12,
   },
 });
-
-export default App;
