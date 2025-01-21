@@ -1,23 +1,13 @@
-import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, ScrollView, Pressable, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Pressable } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
-import { getProductCat } from './lib/productos';
+import { Configuration } from './components/tabmenu';
 
 const alcat = require('./assets/alcat.png');
 const logotipo = require('./assets/lightcat.png')
-const user = require('./icons/perfil.png');
-const carrito = require('./icons/carrito.png');
+
 
 export default function App() {
-  const [productos, setProductos] = useState([]);
-
-  useEffect(() => {
-    getProductCat().then((productos) => {
-      setProductos(productos);
-    });
-  }, []);
 
   const productostem = [
     {
@@ -98,51 +88,44 @@ export default function App() {
   ]
 
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider >
       <SafeAreaView style={styles.container}>
-
         <StatusBar style="light" />
 
         <View style={styles.tabmenu}>
           <Image source={logotipo} style={{ width: 300, height: 90 }} />
-          <Pressable onPress={() => alert("user")} onLongPress={() => alert("secreto")}>
-            <Image source={user} style={styles.iconos} />
-          </Pressable>
-          <Pressable onPress={() => alert("carrito")}>
-            <Image source={carrito} style={styles.iconos} />
-          </Pressable>
+          <Configuration/>
         </View>
 
-        <ScrollView style={{ flexDirection: "row", width: "100%" }}>
+        <View className="pl-4">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: "100%"}} >
           {productostem.map((item) => (
             <View key={item.id} style={styles.card}>
-              <Image source={{ uri: item.image }} style={{ width: 160, height: 160 }} />
-              <Text>{item.name}</Text>
-              <Text>Precio: ${item.price}</Text>
+              <Image source={{ uri: item.image }} style={{ width: 160, height: 200, resizeMode: "contain" }} />
+              <SafeAreaView>
+                <Text>{item.name}</Text>
+                <Text>Precio: ${item.price}</Text>
+              </SafeAreaView>
+              
             </View>
           ))}
         </ScrollView>
+        </View>
+
       </SafeAreaView>
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  iconos: {
-    width: 90,
-    height: 90,
-    marginLeft: 50
-  },
   container: {
     flex: 1,
     backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
     paddingHorizontal: 12,
   },
   card: {
     width: 500,
-    height: 200,
+    height: 280,
     padding: 5,
     backgroundColor: '#ccc',
     borderRadius: 10,
@@ -154,6 +137,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
     justifyContent: "space-between",
-    alignItems: "center",
   },
 });
