@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, ScrollView, Pressable } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Configuration } from './components/tabmenu';
+import Configuration from './components/tabmenu';
 
 const alcat = require('./assets/alcat.png');
 const logotipo = require('./assets/lightcat.png')
@@ -90,14 +90,12 @@ export default function App() {
   return (
     <SafeAreaProvider >
       <SafeAreaView style={styles.container}>
-        <StatusBar style="light" />
-
         <View style={styles.tabmenu}>
           <Image source={logotipo} style={{ width: 300, height: 90 }} />
           <Configuration/>
         </View>
 
-        <View className="pl-4">
+        <View style={{flexDirection:"row", width: "100%"}}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: "100%"}} >
           {productostem.map((item) => (
             <View key={item.id} style={styles.card}>
