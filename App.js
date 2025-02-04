@@ -1,13 +1,41 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, ScrollView, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Configuration from './components/tabmenu';
 
-const alcat = require('./assets/alcat.png');
 const logotipo = require('./assets/lightcat.png')
 
 
 export default function App() {
+  const [defaultRating, setdefaultRating] = useState(2)
+  const [maxRating, setmaxRating] = useState([1,2,3,4,5])
+
+  const starImgFilled = 'https://github.com/tranhonghan/images/blob/main/star_filled.png?raw=true'
+  const starImgCorner = 'https://github.com/tranhonghan/images/blob/main/star_corner.png?raw=true'
+
+  const CustomRatingBar = () => {
+    return (
+      <View style={ styles.customRatingBarStyle }>
+        {
+          maxRating.map((star, index) => {
+          return (
+            <TouchableOpacity 
+              activeOpacity={0.7}
+              key={star}
+              onPress={() => setdefaultRating(star)}
+            >
+              <Image
+              style={styles.starImStyle}
+              source={star <= defaultRating ? { uri: starImgFilled } : { uri: starImgCorner }}
+              />
+            </TouchableOpacity>
+          )
+          })
+        }
+      </View>
+    )
+  }
 
   const productostem = [
     {
@@ -90,24 +118,21 @@ export default function App() {
   return (
     <SafeAreaProvider >
       <SafeAreaView style={styles.container}>
+        <StatusBar style='light'/>
         <View style={styles.tabmenu}>
           <Image source={logotipo} style={{ width: 300, height: 90 }} />
           <Configuration/>
         </View>
 
-        <View style={{flexDirection:"row", width: "100%"}}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: "100%"}} >
+        <View style={styles.scrollerFocus} >
           {productostem.map((item) => (
             <View key={item.id} style={styles.card}>
               <Image source={{ uri: item.image }} style={{ width: 160, height: 200, resizeMode: "contain" }} />
-              <SafeAreaView>
-                <Text>{item.name}</Text>
-                <Text>Precio: ${item.price}</Text>
-              </SafeAreaView>
-              
+              <Text>{item.name}</Text>
+              <Text>Precio: ${item.price}</Text>
+              <CustomRatingBar/>
             </View>
           ))}
-        </ScrollView>
         </View>
 
       </SafeAreaView>
@@ -120,14 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#000',
     paddingHorizontal: 12,
-  },
-  card: {
-    width: 500,
-    height: 280,
-    padding: 5,
-    backgroundColor: '#ccc',
-    borderRadius: 10,
-    marginBottom: 10,
+    width: "100%",
   },
   tabmenu: {
     backgroundColor: '#ff972f',
@@ -135,5 +153,36 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
     justifyContent: "space-between",
+  },
+  scrollerFocus: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    paddingVertical: 10,
+    backgroundColor: '#fff',
+    overflow: "scroll",
+    width: "100%",
+  },
+  card: {
+    width: "40%",
+    height: "auto",
+    padding: 5,
+    margin: 10,
+    backgroundColor: '#ccc',
+    borderRadius: 10,
+  },
+  
+
+  customRatingBarStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  starImStyle: {
+    width: 25,
+    height: 25,
+    resizeMode: 'cover',
   },
 });

@@ -3,7 +3,7 @@ const user = require('../icons/perfil.png');
 const carrito = require('../icons/carrito.png');
 export default function Configuration() {
     return (
-        <View>
+        <View style={styles.containerconfig}>
             <Pressable onPress={() => alert("user")} onLongPress={() => alert("secreto")}>
                 <Image source={user} style={styles.iconos} />
             </Pressable>
@@ -14,9 +14,14 @@ export default function Configuration() {
     )
 }
 const styles = StyleSheet.create({
+    containerconfig: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
     iconos: {
-        width: 30,
-        height: 30,
+        width: 60,
+        height: 60,
         marginHorizontal: 10
     }
 })
