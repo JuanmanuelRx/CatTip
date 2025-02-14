@@ -8,35 +8,6 @@ const logotipo = require('./assets/lightcat.png')
 
 
 export default function App() {
-  const [defaultRating, setdefaultRating] = useState(2)
-  const [maxRating, setmaxRating] = useState([1,2,3,4,5])
-
-  const starImgFilled = 'https://github.com/tranhonghan/images/blob/main/star_filled.png?raw=true'
-  const starImgCorner = 'https://github.com/tranhonghan/images/blob/main/star_corner.png?raw=true'
-
-  const CustomRatingBar = () => {
-    return (
-      <View style={ styles.customRatingBarStyle }>
-        {
-          maxRating.map((star, index) => {
-          return (
-            <TouchableOpacity 
-              activeOpacity={0.7}
-              key={star}
-              onPress={() => setdefaultRating(star)}
-            >
-              <Image
-              style={styles.starImStyle}
-              source={star <= defaultRating ? { uri: starImgFilled } : { uri: starImgCorner }}
-              />
-            </TouchableOpacity>
-          )
-          })
-        }
-      </View>
-    )
-  }
-
   const productostem = [
     {
       "id": 1,
@@ -93,6 +64,7 @@ export default function App() {
       "name": "Juguetes para Gatos Pez",
       "image": "https://m.media-amazon.com/images/I/81hUA0rFo3L.__AC_SX300_SY300_QL70_ML2_.jpg",
       "price": 8.35,
+      "rate": 3,
       "description": "Atrae la atención: La forma del pez y el relleno de hierba gatera atraerán sin duda la atención del gato y lo mantendrán concentrado mientras juega. Proporcionan estimulación: Los rellenos de hierba gatera de los juguetes emiten un tentador aroma que estimula los sentidos del gato y fomenta el juego activo."
     },
     {
@@ -114,6 +86,39 @@ export default function App() {
       "description": "El paquete incluye 4 palitos masticables para gatos, cada palito de pasto para gatos mide 22 cm de largo. Hecho de sustancias vegetales naturales, hace que su gato esté más saludable y dure más. Mantenga a los gatitos felices y frescos."
     }
   ]
+  const ultobjets = productostem.map(product => {return product.rate})
+  const [defaultRating, setdefaultRating] = useState(ultobjets)
+  const maxRating = [1,2,3,4,5]
+
+  const starImgFilled = 'https://github.com/tranhonghan/images/blob/main/star_filled.png?raw=true'
+  const starImgCorner = 'https://github.com/tranhonghan/images/blob/main/star_corner.png?raw=true'
+
+  const CustomRatingBar = ({position}) => {
+    const handleUpdateRate = (realstar) => {
+      const newdefaultRating = defaultRating.map((rate, index) => {
+        if(position === index){
+          return realstar
+        }
+        return rate
+      })
+      setdefaultRating(newdefaultRating)
+    }
+    
+    return (
+      <View style={ styles.customRatingBarStyle }>
+        {
+          maxRating.map((star, index) => {
+          return (
+            <Image
+              style={styles.starImStyle}
+              source={star <= defaultRating[position] ? { uri: starImgFilled } : { uri: starImgCorner }}
+            />
+          )
+          })
+        }
+      </View>
+    )
+  }
 
   return (
     <SafeAreaProvider >
@@ -125,12 +130,16 @@ export default function App() {
         </View>
 
         <View style={styles.scrollerFocus} >
-          {productostem.map((item) => (
+          {productostem.map((item, index) => (
             <View key={item.id} style={styles.card}>
               <Image source={{ uri: item.image }} style={{ width: 160, height: 200, resizeMode: "contain" }} />
               <Text>{item.name}</Text>
               <Text>Precio: ${item.price}</Text>
-              <CustomRatingBar/>
+              <CustomRatingBar position={index} />
+              <Text style={styles.textStyle}>
+                { defaultRating[index] + ' / ' + maxRating.length }
+              </Text>
+              <Text style={styles.description}>{item.description}</Text>
             </View>
           ))}
         </View>
@@ -146,6 +155,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     paddingHorizontal: 12,
     width: "100%",
+  },
+  textStyle: {
+    color: '#fff',
+    fontSize: 18,
+  },
+  description: {
+    color: '#666',
+    fontSize: 16,
+    marginTop: 5,
   },
   tabmenu: {
     backgroundColor: '#ff972f',
@@ -165,7 +183,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   card: {
-    width: "40%",
+    width: "30%",
     height: "auto",
     padding: 5,
     margin: 10,
