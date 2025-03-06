@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Image } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
+
+
 import Configuration from './components/tabmenu';
 import ObjectStyleSheet from './components/ObjectView';
 const logotipo = require('./assets/lightcat.png')
@@ -97,7 +102,7 @@ export default function App() {
 
         <View style={styles.scrollerFocus} >
           {productostem.map((item, index) => (
-            <ObjectStyleSheet key={index+1} item={item} />
+            <ObjectStyleSheet key={uuidv4()} item={item}/>
           ))}
         </View>
 
@@ -148,16 +153,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   
-
-  customRatingBarStyle: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 30,
-  },
-  starImStyle: {
-    width: 25,
-    height: 25,
-    resizeMode: 'cover',
-  },
 });
