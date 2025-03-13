@@ -1,23 +1,24 @@
 import React, {useState} from 'react';
 import { View, Image, Pressable, StyleSheet, Text, TouchableOpacity } from "react-native";
-
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function itemStyleSheet({item}) {
 
+  const maxRating = [1, 2, 3, 4, 5]
+  const starImgFilled = require('../libimg/star_filled.png')
+  const starImgCorner = require('../libimg/star_corner.png')
+
   const ViewRatingBar = ({ rate }) => {
-    const maxRating = [1, 2, 3, 4, 5]
-    const starImgFilled = 'https://github.com/tranhonghan/images/blob/main/star_filled.png?raw=true'
-    const starImgCorner = 'https://github.com/tranhonghan/images/blob/main/star_corner.png?raw=true'
     return (
       <View style={styles.customRatingBarStyle}>
         {
           maxRating.map((star) => {
             return (
               <Image
+                key={uuidv4()}
                 style={styles.starImgStyle}
-                source={star <= {rate} ? { uri: starImgFilled } : { uri: starImgCorner }}
+                source={star <= rate ? starImgFilled : starImgCorner }
               />
             )
           })
@@ -40,15 +41,14 @@ export default function itemStyleSheet({item}) {
 
     )
   }
-
   return (
-    <Pressable key={uuidv4()} style={styles.object}>
-      <View key={item.id} style={styles.card}>
-        <Image source={{ uri: item.image }} style={{ width: 160, height: 200, resizeMode: "contain" }} />
+    <Pressable key={item.id} style={styles.object} onPress={() => {}}>
+      <View>
+        <Image source={item.image} style={styles.image} />
         <Text>{item.name}</Text>
         <Text>Precio: ${item.price}</Text>
-        <ViewRatingBar key={uuidv4()} rate={item.rate} />
-        <BooleanMoreText key={uuidv4()} description={item.description} />
+        <ViewRatingBar rate={item.rate} />
+        <BooleanMoreText description={item.description} />
       </View>
     </Pressable>
   );
@@ -56,15 +56,17 @@ export default function itemStyleSheet({item}) {
 
 const styles = StyleSheet.create({
   object: {
-    width: 150,
-    height: 150,
-    borderRadius: 8,
-    overflow: "hidden",
-    marginBottom: 10,
+    width: "30%",
+    height: "auto",
+    padding: 5,
+    margin: 10,
+    backgroundColor: '#ccc',
+    borderRadius: 10,
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: 160, 
+    height: 200, 
+    resizeMode: "contain"
   },
   text: {
     fontSize: 16,

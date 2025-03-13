@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Image } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
-
 
 import Configuration from './components/tabmenu';
 import ObjectStyleSheet from './components/ObjectView';
@@ -17,7 +16,7 @@ export default function App() {
       id: 1,
       type: "mueble",
       name: "Árbol Rascador para Gatos con Plataforma Torre Escalador",
-      image: "https://m.media-amazon.com/images/I/81pLdodW5BL._AC_SX679_.jpg",
+      image: require('./libimg/cat1.jpg'),
       size: "49 x 49 x 138.5 cm",
       price: 52.99,
       rate: 4,
@@ -27,7 +26,7 @@ export default function App() {
       id: 2,
       type: "mueble",
       name: "Casa para gato plegable",
-      image: "https://m.media-amazon.com/images/I/61+PwCU2HbL._AC_SY300_SX300_.jpg",
+      image: require('./libimg/cat2.jpg'),
       size: "38 x 38 x 43 cm",
       price: 37.98,
       rate: 4,
@@ -37,7 +36,7 @@ export default function App() {
       id: 3,
       type: "mueble",
       name: "Escalera Rascador Para Gatos",
-      image: "https://m.media-amazon.com/images/I/613A-GDAJUL._AC_SX679_.jpg",
+      image: require('./libimg/cat3.jpg'),
       size: "147,3l. cm",
       price: 17.99,
       rate: 4,
@@ -47,7 +46,7 @@ export default function App() {
       id: 4,
       type: "mueble",
       name: "Arenero para Dos Gatos Grandes Madera con Puerta",
-      image: "https://m.media-amazon.com/images/I/71CC9CSrYNL._AC_SX425_.jpg",
+      image: require('./libimg/cat4.jpg'),
       size: "75,5 x 51 x 52,5 cm",
       price: 79.99,
       rate: 4,
@@ -57,7 +56,7 @@ export default function App() {
       id: 5,
       type: "juguete",
       name: "Pez de Simulación de Felpa Móvil con Carga USB",
-      image: "https://m.media-amazon.com/images/I/61+PwCU2HbL._AC_SY300_SX300_.jpg",
+      image: require('./libimg/cat5.jpg'),
       price: 14.99,
       rate: 4,
       description: "Un juguete interactivo para gatos con sensor táctil incorporado. Se mueve y hace un sonido cuando sus gatos golpean al pez en su vientre, lo que mantiene a sus gatos enfocados en el juguete y sacando toda esa energía. Se 'duerme' después de un tiempo y solo se activa cuando se toca."
@@ -66,7 +65,7 @@ export default function App() {
       id: 6,
       type: "juguete",
       name: "Juguetes para Gatos Pez",
-      image: "https://m.media-amazon.com/images/I/81hUA0rFo3L.__AC_SX300_SY300_QL70_ML2_.jpg",
+      image: require('./libimg/cat6.jpg'),
       price: 8.35,
       rate: 3,
       description: "Atrae la atención: La forma del pez y el relleno de hierba gatera atraerán sin duda la atención del gato y lo mantendrán concentrado mientras juega. Proporcionan estimulación: Los rellenos de hierba gatera de los juguetes emiten un tentador aroma que estimula los sentidos del gato y fomenta el juego activo."
@@ -75,7 +74,7 @@ export default function App() {
       id: 7,
       type: "juguete",
       name: "Juguete con Hierba gatera",
-      image: "https://m.media-amazon.com/images/I/619aUuA1OVL._AC_SX425_.jpg",
+      image: require('./libimg/cat7.jpg'),
       price: 12.99,
       rate: 3,
       description: "Atrae la atención: La forma del pez y el relleno de hierba gatera atraerán sin duda la atención del gato y lo mantendrán concentrado mientras juega. Proporcionan estimulación: Los rellenos de hierba gatera de los juguetes emiten un tentador aroma que estimula los sentidos del gato y fomenta el juego activo."
@@ -84,7 +83,7 @@ export default function App() {
       id: 8,
       type: "juguete",
       name: "Palitos para Masticar Gato Juguete",
-      image: "https://m.media-amazon.com/images/I/717uSKc7DAL._AC_SX425_.jpg",
+      image: require('./libimg/cat8.jpg'),
       price: 6.99,
       rate: 4,
       description: "El paquete incluye 4 palitos masticables para gatos, cada palito de pasto para gatos mide 22 cm de largo. Hecho de sustancias vegetales naturales, hace que su gato esté más saludable y dure más. Mantenga a los gatitos felices y frescos."
@@ -101,7 +100,7 @@ export default function App() {
         </View>
 
         <View style={styles.scrollerFocus} >
-          {productostem.map((item, index) => (
+          {productostem.map((item) => (
             <ObjectStyleSheet key={uuidv4()} item={item}/>
           ))}
         </View>
