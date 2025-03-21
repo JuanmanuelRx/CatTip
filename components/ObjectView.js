@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
-import { View, Image, Pressable, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import { Hoverable, Pressable } from 'react-native-web-hover'
 
 export default function itemStyleSheet({item}) {
 
   const maxRating = [1, 2, 3, 4, 5]
   const starImgFilled = require('../libimg/star_filled.png')
   const starImgCorner = require('../libimg/star_corner.png')
+  
 
   const ViewRatingBar = ({ rate }) => {
     return (
@@ -41,8 +43,17 @@ export default function itemStyleSheet({item}) {
 
     )
   }
+
   return (
-    <Pressable key={item.id} style={styles.object} onPress={() => {}}>
+
+    <Pressable 
+    key={item.id} 
+    style={({ hovered, focused, pressed }) => [
+      styles.object,
+      hovered && styles.objecthover,
+      ]} 
+    onPress={() => {}}
+    >
       <View>
         <Image source={item.image} style={styles.image} />
         <Text>{item.name}</Text>
@@ -62,6 +73,19 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: '#ccc',
     borderRadius: 10,
+  },
+  objecthover: {
+    width: "30%",
+    height: "auto",
+    padding: 5,
+    margin: 10,
+    backgroundColor: '#ccc',
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
   image: {
     width: 160, 
