@@ -1,27 +1,30 @@
-import { Image, Pressable, StyleSheet, View } from "react-native";
-const user = require('../icons/perfil.png');
-const carrito = require('../icons/carrito.png');
-export default function Configuration() {
-    return (
-        <View style={styles.containerconfig}>
-            <Pressable onPress={() => alert("user")} onLongPress={() => alert("secreto")}>
-                <Image source={user} style={styles.iconos} />
-            </Pressable>
-            <Pressable onPress={() => alert("carrito")}>
-                <Image source={carrito} style={styles.iconos} />
-            </Pressable>
-        </View>
-    )
+import { Image, StyleSheet, View } from "react-native";
+import Configuration from "./Configuration";
+import SearchForItems from "./SearchObject";
+
+const logotipo = require('../assets/lightcat.png')
+export default function TabMenu() {
+  return (
+    <View style={styles.tabmenu}>
+      <Image source={logotipo} style={styles.logo} />
+      <SearchForItems/>
+      <Configuration/>
+    </View>
+  )
 }
 const styles = StyleSheet.create({
-    containerconfig: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-    iconos: {
-        width: 60,
-        height: 60,
-        marginHorizontal: 10
-    }
+  tabmenu: {
+    backgroundColor: '#ff972f',
+    width: "100%",
+    height: 110,
+    flexDirection: "row",
+    padding: 10,
+    justifyContent: "space-between",
+  },
+  logo:{
+    width: 300,
+    height: 200,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  }
 })
