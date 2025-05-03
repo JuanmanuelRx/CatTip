@@ -1,5 +1,5 @@
 import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 export default function Detail(){
   const { id } = useLocalSearchParams();
@@ -23,12 +23,11 @@ export default function Detail(){
     'cat16.jpg': require('../libimg/cat16.jpg'),
   }
 
-  
-  
   return(
     <View style={styles.containerdetail}>
       <View>
         <Text style={styles.textos}>Detalles del producto {id}</Text>
+        <Image source={imagenes[id]}></Image>
         <Link href='/' style={styles.enlace}>Volver Atras</Link>
       </View>
     </View>
